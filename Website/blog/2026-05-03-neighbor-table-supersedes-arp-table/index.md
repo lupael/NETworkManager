@@ -7,7 +7,7 @@ tags: [neighbor table, arp, ndp, ipv6, refactoring]
 keywords: [NETworkManager, neighbor table, ARP table, ARP, NDP, IPv6, IPv4, MAC address, neighbor discovery, address resolution]
 ---
 
-The `ARP Table` feature has been replaced by the new **Neighbor Table**, a unified view that covers IP-to-MAC address mappings for both IPv4 (ARP) and IPv6 (NDP) in a single place.
+The **ARP Table** feature has been replaced by the new **Neighbor Table**, a unified view that covers IP-to-MAC address mappings for both IPv4 (ARP) and IPv6 (NDP) in a single place.
 
 ![Neighbor Table](./neighbor-table.png)
 
