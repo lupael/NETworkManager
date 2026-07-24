@@ -209,6 +209,7 @@ const config = {
           {
             from: [
               "/docs/changelog/2026-7-16-0",
+              "/docs/changelog/2026-7-24-0",
             ],
             to: "/docs/changelog/next-release",
           },

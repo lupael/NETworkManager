@@ -14,12 +14,14 @@ Release date: **xx.xx.2026**
 
 **System requirements**
 
-- Windows 10 / Server x64 (22H2 or later)
-- [.NET Desktop Runtime 10.0 (LTS) - x64](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)
+- Windows 10 / Server x64/ARM64 (22H2 or later)
+- [.NET Desktop Runtime 10.0 (LTS) - x64/ARM64](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)
 
 ## Breaking Changes
 
 ## What's new?
+
+- ARM64 builds are now available. [#3538](https://github.com/BornToBeRoot/NETworkManager/issues/3538)
 
 **Traceroute**
 
