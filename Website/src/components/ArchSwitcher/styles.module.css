@@ -23,8 +23,11 @@
   color: var(--ifm-color-emphasis-900);
 }
 
-.optionActive,
-.optionActive:hover {
+/* Compound selector (not just .optionActive) so this reliably outranks
+   .option's background in specificity — production CSS minification can
+   reorder same-specificity rules and silently drop the active highlight. */
+.option.optionActive,
+.option.optionActive:hover {
   background: var(--ifm-color-primary);
   color: #000;
 }
