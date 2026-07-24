@@ -58,18 +58,16 @@ export default function DownloadSection() {
         changelogLabel="✨ What's new?"
       />
 
-      {architectures.length > 1 && (
-        <div className={styles.archSwitcherRow}>
-          <ArchSwitcher
-            options={architectures.map((a) => ({
-              key: a,
-              label: ARCH_LABELS[a] ?? a,
-            }))}
-            value={arch}
-            onChange={setArch}
-          />
-        </div>
-      )}
+      <div className={styles.archSwitcherRow}>
+        <ArchSwitcher
+          options={architectures.map((a) => ({
+            key: a,
+            label: ARCH_LABELS[a] ?? a,
+          }))}
+          value={arch}
+          onChange={setArch}
+        />
+      </div>
 
       <DownloadGrid>
         {VARIANTS.filter((v) => archDownloads[v.key]).map((v) => (

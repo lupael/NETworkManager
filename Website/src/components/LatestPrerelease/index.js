@@ -46,24 +46,22 @@ export default function LatestPrerelease() {
       />
 
       <div className="margin-bottom--lg">
-        {architectures.length > 1 && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "16px",
-            }}
-          >
-            <ArchSwitcher
-              options={architectures.map((a) => ({
-                key: a,
-                label: ARCH_LABELS[a] ?? a,
-              }))}
-              value={arch}
-              onChange={setArch}
-            />
-          </div>
-        )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "16px",
+          }}
+        >
+          <ArchSwitcher
+            options={architectures.map((a) => ({
+              key: a,
+              label: ARCH_LABELS[a] ?? a,
+            }))}
+            value={arch}
+            onChange={setArch}
+          />
+        </div>
         <DownloadGrid>
           {VARIANTS.filter((v) => archDownloads[v.key]).map((v) => (
             <DownloadCard

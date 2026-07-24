@@ -11,6 +11,8 @@ import ImageGalleryDashboard from "@site/docs/img/dashboard.png";
 import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 
+const directDownloads = release.downloads.x64;
+
 function HomepageHeader() {
   return (
     <div className={styles.hero} data-theme="dark">
@@ -73,10 +75,10 @@ function HomepageHeader() {
           </span>
         </div>
         <div className={styles.directDownloads}>
-          <span aria-hidden="true">⬇</span> Direct download:{" "}
-          <Link to={release.downloads.setup}>MSI-Setup</Link>
+          <span aria-hidden="true">⬇</span> Direct download (x64):{" "}
+          <Link to={directDownloads.setup}>MSI-Setup</Link>
           <span className={styles.directDownloadsSep}>|</span>
-          <Link to={release.downloads.portable}>Portable</Link>
+          <Link to={directDownloads.portable}>Portable</Link>
         </div>
         <div className={styles.heroScreenshotWrapper}>
           <img

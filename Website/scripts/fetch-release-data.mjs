@@ -54,6 +54,17 @@ function assetFileName(version, variant, arch) {
   return `NETworkManager_${version}${suffix}_win-${arch}${ext}`;
 }
 
+// DEPRECATED: only exists to read releases published before the arch split
+// (native ARM64 build, #3538), which shipped a single, x64-only asset with no
+// "_win-<arch>" part in the name. Every release going forward uses
+// assetFileName() instead. Safe to delete once no release predating #3538 is
+// still linked to from the website (i.e. once release.json itself has moved
+// past 2026.7.7.0).
+function legacyAssetFileName(version, variant) {
+  const { suffix, ext } = VARIANTS[variant];
+  return `NETworkManager_${version}${suffix}${ext}`;
+}
+
 function ghHeaders() {
   const headers = {
     "User-Agent": "NETworkManager-website-build",
@@ -90,11 +101,22 @@ async function fetchChecksumMap(version) {
   for (const line of text.split(/\r?\n/)) {
     const m = line.trim().match(/^([0-9a-fA-F]{64})\s+(.+)$/);
     if (!m) continue;
+    let matched = false;
     for (const arch of ARCHITECTURES) {
       for (const variant of Object.keys(VARIANTS)) {
         if (m[2] === assetFileName(version, variant, arch)) {
           map[arch] ??= {};
           map[arch][variant] = m[1].toUpperCase();
+          matched = true;
+        }
+      }
+    }
+    // DEPRECATED fallback — see legacyAssetFileName().
+    if (!matched) {
+      for (const variant of Object.keys(VARIANTS)) {
+        if (m[2] === legacyAssetFileName(version, variant)) {
+          map.x64 ??= {};
+          map.x64[variant] = m[1].toUpperCase();
         }
       }
     }
@@ -107,13 +129,24 @@ async function fetchChecksumMap(version) {
 // asset (older releases predate ARM64 support and won't have one).
 function buildDownloads(release, version) {
   const downloads = {};
-  for (const arch of ARCHITECTURES) {
-    for (const variant of Object.keys(VARIANTS)) {
+  for (const variant of Object.keys(VARIANTS)) {
+    let matched = false;
+    for (const arch of ARCHITECTURES) {
       const name = assetFileName(version, variant, arch);
       const asset = release.assets.find((a) => a.name === name);
       if (asset) {
         downloads[arch] ??= {};
         downloads[arch][variant] = asset.browser_download_url;
+        matched = true;
+      }
+    }
+    // DEPRECATED fallback — see legacyAssetFileName().
+    if (!matched) {
+      const legacyName = legacyAssetFileName(version, variant);
+      const asset = release.assets.find((a) => a.name === legacyName);
+      if (asset) {
+        downloads.x64 ??= {};
+        downloads.x64[variant] = asset.browser_download_url;
       }
     }
   }
